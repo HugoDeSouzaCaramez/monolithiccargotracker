@@ -1,0 +1,21 @@
+<server description="Cargo Tracker Server">
+    <featureManager>
+        <feature>webprofile-8.0</feature>
+        <feature>jdbc-4.2</feature>
+        <feature>jpa-2.2</feature>
+        <feature>cdi-2.0</feature>
+    </featureManager>
+
+    <httpEndpoint httpPort="9080" httpsPort="9443" id="defaultHttpEndpoint" host="*" />
+
+    <webApplication id="monolithiccargotracker" location="monolithiccargotracker.war" contextRoot="monolithiccargotracker" />
+
+    <library id="MySQLLib">
+        <fileset dir="${server.config.dir}/lib" includes="mysql-*.jar"/>
+    </library>
+
+    <dataSource id="monolithiccargotracker" jndiName="jdbc/monolithiccargotracker">
+        <jdbcDriver libraryRef="MySQLLib"/>
+        <properties URL="jdbc:mysql://localhost:3306/monolithiccargotracker?useSSL=false&amp;allowPublicKeyRetrieval=true&amp;serverTimezone=UTC" user="monolithiccargotracker" password="monolithiccargotracker"/>
+    </dataSource>
+</server>

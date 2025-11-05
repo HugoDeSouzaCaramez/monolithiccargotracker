@@ -1,0 +1,31 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<persistence version="2.2"
+  xmlns="http://xmlns.jcp.org/xml/ns/persistence"
+  xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://xmlns.jcp.org/xml/ns/persistence
+                                 http://xmlns.jcp.org/xml/ns/persistence/persistence_2_2.xsd">
+  <persistence-unit name="monolithiccargotracker" transaction-type="JTA">
+    <jta-data-source>jdbc/monolithiccargotracker</jta-data-source>
+
+    <!-- Entidades -->
+    <class>com.br.hugo.ddd.monolithiccargotracker.booking.domain.model.aggregates.Cargo</class>
+    <class>com.br.hugo.ddd.monolithiccargotracker.booking.domain.model.valueobjects.Leg</class>
+    <class>com.br.hugo.ddd.monolithiccargotracker.tracking.domain.model.aggregates.TrackingActivity</class>
+    <class>com.br.hugo.ddd.monolithiccargotracker.tracking.domain.model.valueobjects.TrackingEvent</class>
+    <class>com.br.hugo.ddd.monolithiccargotracker.handling.domain.model.aggregates.HandlingActivity</class>
+    <class>com.br.hugo.ddd.monolithiccargotracker.routing.domain.model.aggregates.Voyage</class>
+    <class>com.br.hugo.ddd.monolithiccargotracker.routing.domain.model.entities.CarrierMovement</class>
+
+    <properties>
+      <!-- Configuração para criação automática das tabelas -->
+      <property name="javax.persistence.schema-generation.database.action" value="drop-and-create"/>
+      <property name="javax.persistence.schema-generation.create-source" value="metadata"/>
+
+      <!-- Configuração para MySQL -->
+      <property name="eclipselink.target-database" value="org.eclipse.persistence.platform.database.MySQLPlatform"/>
+
+      <!-- Logging para debug -->
+      <property name="eclipselink.logging.level" value="FINE"/>
+      <property name="eclipselink.logging.parameters" value="true"/>
+    </properties>
+  </persistence-unit>
+</persistence>

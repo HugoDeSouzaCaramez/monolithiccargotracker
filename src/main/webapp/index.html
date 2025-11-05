@@ -1,0 +1,114 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Cargo Tracker - Sistema DDD</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            margin: 0;
+            padding: 40px;
+            background-color: #f5f5f5;
+            color: #333;
+        }
+        .container {
+            max-width: 800px;
+            margin: 0 auto;
+            background: white;
+            padding: 30px;
+            border-radius: 8px;
+            box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+        }
+        h1 {
+            color: #2c3e50;
+            border-bottom: 2px solid #3498db;
+            padding-bottom: 10px;
+        }
+        .card {
+            background: #f8f9fa;
+            padding: 20px;
+            margin: 15px 0;
+            border-radius: 5px;
+            border-left: 4px solid #3498db;
+        }
+        .btn {
+            display: inline-block;
+            background: #3498db;
+            color: white;
+            padding: 10px 20px;
+            text-decoration: none;
+            border-radius: 4px;
+            margin: 5px;
+            transition: background 0.3s;
+        }
+        .btn:hover {
+            background: #2980b9;
+        }
+        .endpoint-list {
+            list-style: none;
+            padding: 0;
+        }
+        .endpoint-list li {
+            padding: 8px 0;
+            border-bottom: 1px solid #eee;
+        }
+        .bounded-context {
+            background: #e8f4fd;
+            padding: 15px;
+            margin: 10px 0;
+            border-radius: 5px;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>🚢 Cargo Tracker</h1>
+        <p><strong>Sistema de Rastreamento de Cargas baseado em Domain-Driven Design</strong></p>
+        
+        <div class="card">
+            <h2>📋 Bounded Contexts Implementados:</h2>
+            
+            <div class="bounded-context">
+                <h3>📦 Booking Context</h3>
+                <p>Gerenciamento de reservas de carga</p>
+            </div>
+            
+            <div class="bounded-context">
+                <h3>🛤️ Routing Context</h3>
+                <p>Roteirização e planejamento de viagens</p>
+            </div>
+            
+            <div class="bounded-context">
+                <h3>👐 Handling Context</h3>
+                <p>Registro de eventos de manuseio</p>
+            </div>
+            
+            <div class="bounded-context">
+                <h3>📍 Tracking Context</h3>
+                <p>Rastreamento em tempo real</p>
+            </div>
+        </div>
+
+        <div class="card">
+            <h2>🔗 Testar Aplicação:</h2>
+            <a href="servlet" class="btn">Testar Servlet</a>
+            <a href="serviceapi/voyageRouting/optimalRoute?origin=CNHKG&destination=USNYC&deadline=2024-12-31" class="btn">Testar API de Rotas</a>
+        </div>
+
+        <div class="card">
+            <h2>🌐 Endpoints da API:</h2>
+            <ul class="endpoint-list">
+                <li><strong>POST</strong> /serviceapi/cargobooking - Reservar nova carga</li>
+                <li><strong>POST</strong> /serviceapi/cargorouting - Roteirizar carga existente</li>
+                <li><strong>POST</strong> /serviceapi/cargohandling - Registrar evento de manuseio</li>
+                <li><strong>GET</strong> /serviceapi/voyageRouting/optimalRoute - Calcular rota ótima</li>
+            </ul>
+        </div>
+
+        <div style="margin-top: 30px; text-align: center; color: #7f8c8d;">
+            <p>Projeto DDD - Practical DDD - Chapter 3</p>
+        </div>
+    </div>
+</body>
+</html>

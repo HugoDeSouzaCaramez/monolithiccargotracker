@@ -1,0 +1,79 @@
+package com.br.hugo.ddd.monolithiccargotracker.shareddomain.model;
+
+import java.io.Serializable;
+import java.util.Date;
+
+/**
+ * Representa uma aresta em um caminho através de um grafo, descrevendo a rota
+ * de uma
+ * carga
+ */
+public class TransitEdge implements Serializable {
+
+    private String voyageNumber;
+    private String fromUnLocode;
+    private String toUnLocode;
+    private Date fromDate;
+    private Date toDate;
+
+    public TransitEdge() {
+
+    }
+
+    public TransitEdge(String voyageNumber, String fromUnLocode,
+            String toUnLocode, Date fromDate, Date toDate) {
+        this.voyageNumber = voyageNumber;
+        this.fromUnLocode = fromUnLocode;
+        this.toUnLocode = toUnLocode;
+        this.fromDate = fromDate;
+        this.toDate = toDate;
+    }
+
+    public String getVoyageNumber() {
+        return voyageNumber;
+    }
+
+    public void setVoyageNumber(String voyageNumber) {
+        this.voyageNumber = voyageNumber;
+    }
+
+    public String getFromUnLocode() {
+        return fromUnLocode;
+    }
+
+    public void setFromUnLocode(String fromUnLocode) {
+        this.fromUnLocode = fromUnLocode;
+    }
+
+    public String getToUnLocode() {
+        return toUnLocode;
+    }
+
+    public void setToUnLocode(String toUnLocode) {
+        this.toUnLocode = toUnLocode;
+    }
+
+    public Date getFromDate() {
+        return fromDate;
+    }
+
+    public void setFromDate(Date fromDate) {
+        this.fromDate = fromDate;
+    }
+
+    public Date getToDate() {
+        return toDate;
+    }
+
+    public void setToDate(Date toDate) {
+        this.toDate = toDate;
+    }
+
+    @Override
+    public String toString() {
+        return "TransitEdge{" + "voyageNumber=" + voyageNumber
+                + ", fromUnLocode=" + fromUnLocode + ", toUnLocode="
+                + toUnLocode + ", fromDate=" + fromDate
+                + ", toDate=" + toDate + '}';
+    }
+}

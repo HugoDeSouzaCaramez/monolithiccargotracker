@@ -1,0 +1,56 @@
+# Maven
+target/
+pom.xml.tag
+pom.xml.releaseBackup
+pom.xml.versionsBackup
+pom.xml.next
+release.properties
+dependency-reduced-pom.xml
+buildNumber.properties
+.mvn/timing.properties
+.mvn/wrapper/maven-wrapper.jar
+
+# Liberty
+src/main/liberty/config/lib/
+*.log
+logs/
+wlp-*/
+
+# IDE
+.idea/
+*.iml
+*.ipr
+*.iws
+.classpath
+.project
+.settings/
+bin/
+.nb-gradle/
+**/nbproject/private/
+**/nbproject/build-impl.xml
+**/nbproject/project.properties
+**/nbproject/project.xml
+
+# OS
+.DS_Store
+Thumbs.db
+
+# Database
+*.db
+*.sql
+*.h2.db
+
+# Logs
+*.log
+**/logs/
+
+# Temp files
+*.tmp
+*.temp
+
+# Docker
+docker-compose.override.yml
+
+# Application specific
+src/main/liberty/config/server.env
+src/main/liberty/config/bootstrap.properties

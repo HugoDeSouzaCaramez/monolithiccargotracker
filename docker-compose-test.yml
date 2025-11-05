@@ -1,0 +1,15 @@
+# docker-compose-test.yml
+version: '3.8'
+services:
+  test-db:
+    image: mysql:8.0
+    environment:
+      MYSQL_DATABASE: cargotracker_test
+      MYSQL_ROOT_PASSWORD: test
+    ports:
+      - "3307:3306"
+    
+  test-wiremock:
+    image: wiremock/wiremock
+    ports:
+      - "8080:8080"
