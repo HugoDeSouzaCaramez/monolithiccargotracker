@@ -11,6 +11,7 @@ import com.br.hugo.ddd.monolithiccargotracker.tracking.domain.model.valueobjects
 
 import javax.persistence.*;
 
+//Aggregate Root
 @Entity
 @NamedQueries({
         @NamedQuery(name = "TrackingActivity.findAll", query = "Select t from TrackingActivity t"),
@@ -19,6 +20,9 @@ import javax.persistence.*;
         @NamedQuery(name = "TrackingActivity.findByBookingNumber", query = "Select t from TrackingActivity t where t.bookingId = :bookingId") })
 @Table(name = "tracking_activity")
 public class TrackingActivity {
+    // CONCEITO: Aggregate Root com Event Sourcing style
+    // CONCEITO: Command Handler no aggregate
+
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
@@ -27,13 +31,15 @@ public class TrackingActivity {
     @Embedded
     private TrackingBookingId bookingId;
     @Embedded
-    private TrackingActivityEvent trackingActivityEvent;
+    private TrackingActivityEvent trackingActivityEvent; // Lista de eventos
 
     public TrackingActivity() {
     }
 
     /**
      * Cria um novo Número de Rastreamento
+     * 
+     * CONCEITO: Construction from Command
      * 
      * @param assignTrackingNumberCommand
      */
@@ -53,6 +59,8 @@ public class TrackingActivity {
 
     /**
      * Adiciona um evento de rastreamento aos Detalhes de Rastreamento
+     * 
+     * CONCEITO: Behavior method que modifica estado
      * 
      * @param addTrackingEventCommand
      */

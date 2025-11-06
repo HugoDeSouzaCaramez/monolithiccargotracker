@@ -3,6 +3,7 @@ package com.br.hugo.ddd.monolithiccargotracker.booking.domain.model.valueobjects
 import javax.persistence.Column;
 import javax.persistence.Embeddable;
 
+// DOMAIN (Modelo de Domínio)
 /**
  * Representação do modelo de domínio da Quantidade Reservada para uma nova
  * Carga.

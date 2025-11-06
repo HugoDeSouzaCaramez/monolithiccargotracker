@@ -11,6 +11,8 @@ import java.util.List;
 /**
  * Classe de Serviço de Aplicação para o serviço de Consulta de Roteamento de
  * Carga
+ * 
+ * QUERIES - Apenas leem estado  
  */
 @ApplicationScoped
 public class CargoRoutingQueryService {

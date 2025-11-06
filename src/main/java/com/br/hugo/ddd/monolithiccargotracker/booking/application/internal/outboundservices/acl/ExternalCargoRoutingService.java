@@ -14,11 +14,13 @@ import javax.inject.Inject;
 import java.util.ArrayList;
 import java.util.List;
 
+// ANTI-CORRUPTION LAYER
 /**
  * Classe de Serviço Anticorrupção
  */
 @ApplicationScoped
 public class ExternalCargoRoutingService {
+    // CONCEITO: Anti-Corruption Layer - traduz entre modelos
 
     @Inject
     private ExternalCargoRoutingClient externalCargoRoutingClient;
@@ -34,11 +36,13 @@ public class ExternalCargoRoutingService {
      */
     public CargoItinerary fetchRouteForSpecification(RouteSpecification routeSpecification) {
 
+        // CONCEITO: External Service Call
         TransitPath transitPath = externalCargoRoutingClient.findOptimalRoute(
                 routeSpecification.getOrigin().getUnLocCode(),
                 routeSpecification.getDestination().getUnLocCode(),
                 routeSpecification.getArrivalDeadline().toString());
 
+        // CONCEITO: Model Translation
         List<Leg> legs = new ArrayList<Leg>(transitPath.getTransitEdges().size());
         for (TransitEdge edge : transitPath.getTransitEdges()) {
             legs.add(toLeg(edge));
@@ -52,6 +56,8 @@ public class ExternalCargoRoutingService {
      * Método de conversão da camada anticorrupção do modelo de domínio do serviço
      * de roteamento (TransitEdges)
      * para o modelo de domínio reconhecido pelo Bounded Context de Reserva (Legs)
+     * 
+     * CONCEITO: Private mapping method
      * 
      * @param edge
      * @return

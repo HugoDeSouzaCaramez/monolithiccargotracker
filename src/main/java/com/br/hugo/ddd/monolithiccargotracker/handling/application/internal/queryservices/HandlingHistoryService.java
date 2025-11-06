@@ -10,6 +10,8 @@ import javax.transaction.Transactional;
 /**
  * Serviço de Aplicação que atende a todas as consultas relacionadas ao Agregado
  * de Atividade de Manuseio
+ * 
+ * QUERIES - Apenas leem estado 
  */
 @ApplicationScoped
 public class HandlingHistoryService {

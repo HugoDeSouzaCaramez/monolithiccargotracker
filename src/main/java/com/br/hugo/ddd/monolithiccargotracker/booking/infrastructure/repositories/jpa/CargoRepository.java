@@ -13,13 +13,26 @@ import java.util.UUID;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 
+// INFRASTRUCTURE (Adaptadores de Saída)
 /**
- * Classe de Repositório para o Agregado Carga. Responsável por todas as operações
- * de repositório
- * relacionadas ao estado da Carga
+ * Classe de Repositório para o Agregado Cargo
+ * 
+ * Esta classe é um Repositório no sentido DDD, responsável por persistir e recuperar o agregado Cargo.
+ * Ela está localizada no pacote 'infrastructure' do Bounded Context de Booking.
+ * 
+ * Conceitos:
+ * - Repositório: Abstração sobre a camada de persistência, fornecendo uma interface baseada em coleção para acessar agregados.
+ * - Outbound Service: Este repositório é um adaptador de saída (outbound adapter) que conecta o domínio ao banco de dados.
+ * - JPA: Utiliza o EntityManager do JPA para realizar operações de persistência.
+ * - CDI: É um CDI Bean, gerenciado pelo container, com escopo de aplicação.
+ *  Repository
+ * 
+ * O repositório é responsável por operations como store, find, nextBookingId, etc.
  */
 @ApplicationScoped
 public class CargoRepository {
+    // CONCEITO: Repository Pattern - Abstraction over persistence
+    // CONCEITO: Outbound Service - Infrastructure layer
 
     private static final long serialVersionUID = 1L;
 
@@ -27,10 +40,12 @@ public class CargoRepository {
             CargoRepository.class.getName());
 
     @PersistenceContext(unitName = "monolithiccargotracker")
-    private EntityManager entityManager;
+    private EntityManager entityManager; // CONCEITO: JPA Managed Resource
 
     /**
      * Retorna o Agregado Carga com base no Identificador de Reserva de uma Carga
+     * 
+     * CONCEITO: Aggregate-oriented persistence
      * 
      * @param bookingId
      * @return
@@ -38,6 +53,7 @@ public class CargoRepository {
     public Cargo find(BookingId bookingId) {
         Cargo cargo;
         try {
+            // CONCEITO: Named Queries no Aggregate Root
             cargo = entityManager.createNamedQuery("Cargo.findByBookingId",
                     Cargo.class)
                     .setParameter("bookingId", bookingId)
@@ -53,6 +69,8 @@ public class CargoRepository {
     /**
      * Persiste o Agregado Carga
      * 
+     * CONCEITO: Store whole aggregate
+     * 
      * @param cargo
      */
     public void store(Cargo cargo) {
@@ -63,6 +81,8 @@ public class CargoRepository {
 
     /**
      * Obtém o Próximo Identificador de Reserva
+     * 
+     * CONCEITO: Business Key Generation
      * 
      * @return
      */

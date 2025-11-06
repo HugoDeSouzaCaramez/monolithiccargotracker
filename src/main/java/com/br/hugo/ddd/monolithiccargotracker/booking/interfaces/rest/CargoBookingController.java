@@ -13,6 +13,19 @@ import javax.ws.rs.Produces;
 import javax.ws.rs.core.MediaType;
 import javax.ws.rs.core.Response;
 
+// INTERFACES (Adaptadores de Entrada)
+/**
+ * Controlador REST para o Bounded Context de Booking
+ * 
+ * Esta classe é um Adaptador de Entrada (Inbound Adapter) (INTERFACE) no sentido da Arquitetura Hexagonal. Ela expõe endpoints REST para interagir com o Bounded Context de Booking.
+ * 
+ * Conceitos:
+ * - Inbound Service: Adaptador que recebe requisições externas (REST) e as traduz em chamadas para o interior da aplicação (Serviços de Aplicação).
+ * - JAX-RS: Utiliza as anotações do JAX-RS para definir os endpoints REST.
+ * - CDI: Utiliza injeção de dependência para obter o Serviço de Aplicação (CargoBookingCommandService).
+ * 
+ * Este controlador está localizado no pacote 'interfaces' do Bounded Context de Booking.
+ */
 @Path("/cargobooking")
 @ApplicationScoped
 public class CargoBookingController {

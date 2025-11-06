@@ -7,6 +7,7 @@ import javax.ws.rs.core.MediaType;
 
 import com.br.hugo.ddd.monolithiccargotracker.shareddomain.model.TransitPath;
 
+// INFRASTRUCTURE (Adaptadores de Saída)
 /**
  * Cliente REST Tipado (Type Safe) para a API do Serviço de Roteamento
  */

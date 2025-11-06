@@ -5,10 +5,12 @@ import javax.persistence.Embeddable;
 import java.io.Serializable;
 
 /**
- * Identificador de Agregado para o Agregado Carga
+ * Identificador de Agregado (Aggregate Identifier) para o Agregado Carga
  */
 @Embeddable
 public class BookingId implements Serializable {
+    // CONCEITO: Business Key - Identificador de negócio do Aggregate
+    // CONCEITO: Embedded Value - Sem identidade própria
 
     @Column(name = "booking_id")
     private String bookingId;
@@ -16,7 +18,9 @@ public class BookingId implements Serializable {
     public BookingId() {
     }
 
+    // CONCEITO: Value Object com validação e comportamento
     public BookingId(String bookingId) {
+        // Poderia ter validações de formato do ID
         this.bookingId = bookingId;
     }
 

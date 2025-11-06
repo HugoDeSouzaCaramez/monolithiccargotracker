@@ -5,6 +5,7 @@ import com.br.hugo.ddd.monolithiccargotracker.booking.domain.model.entities.Loca
 import javax.persistence.*;
 import java.io.Serializable;
 
+// DOMAIN (Modelo de Domínio)
 /**
  * Uma atividade de manuseio representa como e onde uma carga pode ser
  * manuseada, e pode

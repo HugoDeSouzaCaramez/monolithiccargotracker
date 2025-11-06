@@ -9,9 +9,12 @@ import javax.inject.Inject;
 import javax.transaction.Transactional;
 import java.util.List;
 
+// APPLICATION (Serviços de Aplicação)
 /**
- * Serviço de Aplicação que atende a todas as consultas relacionadas ao
+ * Serviço de Aplicação (APPLICATION) que atende a todas as consultas relacionadas ao
  * Bounded Context de Reserva
+ * 
+ * QUERIES - Apenas leem estado  
  */
 @ApplicationScoped
 public class CargoBookingQueryService {

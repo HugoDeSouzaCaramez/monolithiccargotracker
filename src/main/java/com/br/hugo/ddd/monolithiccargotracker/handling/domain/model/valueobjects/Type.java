@@ -4,6 +4,10 @@ package com.br.hugo.ddd.monolithiccargotracker.handling.domain.model.valueobject
  * Tipo de evento de manuseio. Ou exige ou proíbe uma associação com movimento
  * de transportadora,
  * nunca é opcional.
+ * 
+ * Enum com Domain Logic
+ * 
+ * CONCEITO: Smart Enum com regras de domínio
  */
 public enum Type {
 
@@ -31,6 +35,8 @@ public enum Type {
     }
 
     /**
+     * CONCEITO: Business Methods no enum
+     * 
      * @return Verdadeiro se uma associação de viagem é necessária para este tipo de
      *         evento.
      */

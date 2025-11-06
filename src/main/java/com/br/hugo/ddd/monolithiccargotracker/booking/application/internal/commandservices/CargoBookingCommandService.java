@@ -16,18 +16,35 @@ import javax.enterprise.event.Event;
 import javax.inject.Inject;
 import javax.transaction.Transactional;
 
+// APPLICATION (Serviços de Aplicação)
 /**
  * Classe de Serviço de Aplicação para o Comando de Reserva de Carga
+ * 
+ * Esta classe é um Serviço de Aplicação (APPLICATION) no sentido DDD, responsável por orquestrar a execução de comandos que alteram o estado do sistema.
+ * Ela está localizada no pacote 'application' do Bounded Context de Booking, que é um dos módulos do monolito.
+ * 
+ * Conceitos:
+ * - Serviço de Aplicação: Coordena a execução de comandos, utiliza o modelo de domínio e dispara eventos de domínio.
+ * - Comando: Representa uma intenção de alterar o estado do sistema (ex: bookCargo, assignRouteToCargo).
+ * - Eventos de Domínio: Dispara eventos (ex: CargoBookedEvent, CargoRoutedEvent) que são consumidos por outros Bounded Contexts.
+ * - Transações: A anotação @Transactional inicia uma transação, que é commitada ao final do método (se bem-sucedido) ou revertida (em caso de exceção).
+ * COMMANDS - Alteram estado
+ * 
+ * Esta classe é um CDI Bean, gerenciado pelo container Jakarta EE, com escopo de aplicação.
  */
 @ApplicationScoped
 public class CargoBookingCommandService {
+    // CONCEITO: Application Service - Coordena casos de uso
+    // CONCEITO: Transaction Management - @Transactional
+    // CONCEITO: Event Publishing - CDI Events
 
     @Inject
     private CargoRepository cargoRepository; // Serviço de Saída para conectar à Instância do Banco de Dados MySQL do
                                              // Bounded Context de Reserva
+                                             // Outbound Service
 
     @Inject
-    private Event<CargoBookedEvent> cargoBookedEventControl;
+    private Event<CargoBookedEvent> cargoBookedEventControl; // CDI Event Producer
 
     @Inject
     private Event<CargoRoutedEvent> cargoRoutedEventControl; // Evento que precisa ser disparado quando a Carga é
@@ -43,11 +60,19 @@ public class CargoBookingCommandService {
      */
     @Transactional // Inicia a Transação
     public BookingId bookCargo(BookCargoCommand bookCargoCommand) {
+        // CONCEITO: Aggregate Construction - novo aggregate
+        // CONCEITO: Business Key Generation - bookingId
+
         String bookingId = cargoRepository.nextBookingId();
         bookCargoCommand.setBookingId(bookingId);
+
+        // CONCEITO: Domain Model Invocation - constructor with command
         Cargo cargo = new Cargo(bookCargoCommand);
+
+        // CONCEITO: State Persistence - via repository
         cargoRepository.store(cargo); // Armazena a Carga
 
+        // CONCEITO: Domain Event Publishing - from Application Service
         CargoBookedEvent cargoBookedEvent = new CargoBookedEvent();
         cargoBookedEvent.setId(bookingId); // Define o conteúdo do evento
         cargoBookedEventControl.fire(cargoBookedEvent);

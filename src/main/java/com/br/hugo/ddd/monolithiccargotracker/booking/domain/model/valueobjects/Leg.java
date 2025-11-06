@@ -6,6 +6,7 @@ import javax.persistence.*;
 import javax.validation.constraints.NotNull;
 import java.util.Date;
 
+// DOMAIN (Modelo de Domínio)
 @Entity
 public class Leg {
     private static final long serialVersionUID = 1L;

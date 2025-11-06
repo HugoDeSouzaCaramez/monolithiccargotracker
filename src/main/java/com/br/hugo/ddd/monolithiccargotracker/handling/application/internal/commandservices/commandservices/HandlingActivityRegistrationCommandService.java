@@ -13,6 +13,20 @@ import javax.inject.Inject;
 import javax.transaction.Transactional;
 import java.util.logging.Logger;
 
+/**
+ * Serviço de Aplicação para Registrar Atividades de Manuseio
+ * 
+ * Esta classe é um Serviço de Aplicação no Bounded Context de Handling, responsável por registrar atividades de manuseio de cargas.
+ * 
+ * Conceitos:
+ * - Serviço de Aplicação: Orquestra a execução do comando HandlingActivityRegistrationCommand, que altera o estado do sistema (registra uma atividade de manuseio).
+ * - Comando: HandlingActivityRegistrationCommand é um comando que contém os dados necessários para registrar uma atividade de manuseio.
+ * - Validação: O método isValidCommand valida os dados de entrada do comando.
+ * - Factory: Utiliza a lógica de fábrica para criar a instância do agregado HandlingActivity, dependendo se a atividade requer uma viagem ou não.
+ * - Repositório: Utiliza o HandlingActivityRepository para persistir o agregado.
+ * 
+ * Esta classe é um CDI Bean com escopo de aplicação.
+ */
 @ApplicationScoped
 public class HandlingActivityRegistrationCommandService {
 

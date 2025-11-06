@@ -6,6 +6,7 @@ import com.br.hugo.ddd.monolithiccargotracker.handling.interfaces.rest.dto.Handl
 /**
  * Classe Assembler para converter os Dados do Recurso de Reserva de Carga no
  * Modelo de Reserva de Carga
+ * É uma interface (adaptador de entrada) (INTERFACES)
  */
 public class HandlingActivityRegistrationCommandDTOAssembler {
 

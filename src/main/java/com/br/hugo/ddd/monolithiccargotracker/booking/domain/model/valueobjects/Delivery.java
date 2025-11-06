@@ -5,14 +5,19 @@ import com.br.hugo.ddd.monolithiccargotracker.booking.domain.model.entities.Loca
 import javax.persistence.*;
 import java.util.Date;
 
+// DOMAIN (Modelo de Domínio)
 /**
  * Classe de Domínio que acompanha o progresso da Carga em relação à
  * Especificação
  * da Rota / Itinerário e Eventos de Manuseio.
+ * 
+ * Value Object com Domain Rules
  */
 
 @Embeddable
 public class Delivery {
+    // CONCEITO: Value Object complexo com regras de domínio
+    // CONCEITO: Calculated State - Estado derivado de outras entidades
 
     public static final Date ETA_UNKOWN = null;
 
@@ -43,6 +48,7 @@ public class Delivery {
         // Nada para Inicializar
     }
 
+    // CONCEITO: Domain Rules como métodos privados
     public Delivery(LastCargoHandledEvent lastEvent, CargoItinerary itinerary,
             RouteSpecification routeSpecification) {
         this.lastEvent = lastEvent;
@@ -61,6 +67,9 @@ public class Delivery {
      * roteamento,
      * isto é, quando a especificação da rota ou itinerário mudaram, sem manuseio
      * adicional da carga.
+     * 
+     * CONCEITO: Update Method retornando novo Value Object
+     * 
      */
     public Delivery updateOnRouting(RouteSpecification routeSpecification,
             CargoItinerary itinerary) {
@@ -84,6 +93,8 @@ public class Delivery {
     /**
      * Método para calcular o status de Roteamento de uma Carga
      *
+     * CONCEITO: Business Rule Method
+     * 
      * @param itinerary
      * @param routeSpecification
      * @return

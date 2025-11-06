@@ -13,7 +13,16 @@ import javax.ws.rs.core.MediaType;
 import javax.ws.rs.core.Response;
 
 /**
- * Controlador para a API REST
+ * Controlador REST para o Bounded Context de Handling
+ * 
+ * Esta classe é um Adaptador de Entrada (Inbound Adapter) que expõe endpoints REST para registrar atividades de manuseio.
+ * 
+ * Conceitos:
+ * - Inbound Service: Adaptador que recebe requisições REST e as traduz em comandos para o Serviço de Aplicação.
+ * - JAX-RS: Utiliza anotações JAX-RS para definir o endpoint REST.
+ * - CDI: Injeta o Serviço de Aplicação (HandlingActivityRegistrationCommandService) para processar o comando.
+ * 
+ * Este controlador está localizado no pacote 'interfaces' do Bounded Context de Handling.
  */
 @Path("/cargohandling")
 @ApplicationScoped

@@ -4,6 +4,7 @@ import javax.persistence.*;
 import java.util.Collections;
 import java.util.List;
 
+// DOMAIN (Modelo de Domínio)
 @Embeddable
 public class CargoItinerary {
 

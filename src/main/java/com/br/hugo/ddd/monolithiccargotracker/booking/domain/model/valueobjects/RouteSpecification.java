@@ -6,8 +6,13 @@ import javax.persistence.*;
 import javax.validation.constraints.NotNull;
 import java.util.Date;
 
+// DOMAIN (Modelo de Domínio)
+// (Value Object)
 @Embeddable
 public class RouteSpecification {
+    // CONCEITO: Value Object - Sem identidade, substituível
+    // CONCEITO: Embedded Objects - Composição com outros VOs
+
     private static final long serialVersionUID = 1L;
     @Embedded
     @AttributeOverride(name = "unLocCode", column = @Column(name = "spec_origin_id"))
@@ -24,6 +29,8 @@ public class RouteSpecification {
     }
 
     /**
+     * CONCEITO: Business Rules no constructor
+     * 
      * @param origin          local de origem - não pode ser o mesmo que o destino
      * @param destination     local de destino - não pode ser o mesmo que a origem
      * @param arrivalDeadline prazo de chegada
