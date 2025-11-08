@@ -16,7 +16,7 @@ import javax.persistence.*;
  * - Agregado: Um cluster de entidades e objetos de valor que são tratados como uma única unidade para mudanças de dados.
  * - Agregado Raiz: A entidade que é o ponto de entrada para acessar o agregado. Possui uma identidade única (BookingId) e é responsável por garantir as invariantes.
  * - Entidades: Objetos com identidade única que são parte do agregado (ex: Location, que é uma entidade dentro do agregado Cargo).
- * - Objetos de Valor: Objetos imutáveis sem identidade, que são substituídos como um todo (ex: RouteSpecification, Itinerary, Delivery).
+ * - Objetos de Valor: Objetos mutáveis sem identidade, que são substituídos como um todo (ex: RouteSpecification, Itinerary, Delivery).
  * - Domain Richness: O agregado Cargo possui atributos de negócio (origin, routeSpecification, etc.) e métodos de negócio (assignToRoute) que encapsulam a lógica de domínio.
  * - Estado do Agregado: O estado do agregado é persistido via JPA (annotations @Entity, @Embedded, etc.).
  * 
