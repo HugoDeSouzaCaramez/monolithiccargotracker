@@ -1,7 +1,7 @@
 package com.br.hugo.ddd.monolithiccargotracker.booking.domain.model.aggregates;
 
 import com.br.hugo.ddd.monolithiccargotracker.booking.domain.model.commands.BookCargoCommand;
-import com.br.hugo.ddd.monolithiccargotracker.booking.domain.model.entities.Location;
+import com.br.hugo.ddd.monolithiccargotracker.booking.domain.model.valueobjects.Location;
 import com.br.hugo.ddd.monolithiccargotracker.booking.domain.model.valueobjects.*;
 
 import javax.persistence.*;
@@ -83,9 +83,9 @@ public class Cargo {
         return bookingId;
     }
 
-    public void setOrigin(Location origin) {
+    /*public void setOrigin(Location origin) {
         this.origin = origin;
-    }
+    }*/
 
     public Location getOrigin() {
         return origin;
@@ -99,9 +99,9 @@ public class Cargo {
         return this.bookingAmount;
     }
 
-    public void setBookingAmount(BookingAmount bookingAmount) {
+    /*public void setBookingAmount(BookingAmount bookingAmount) {
         this.bookingAmount = bookingAmount;
-    }
+    }*/
 
     /**
      * @return O Itinerário
@@ -110,9 +110,9 @@ public class Cargo {
         return this.itinerary;
     }
 
-    public void setItinerary(CargoItinerary itinerary) {
+    /*public void setItinerary(CargoItinerary itinerary) {
         this.itinerary = itinerary;
-    }
+    }*/
 
     /**
      * Atribui Rota à Carga
@@ -121,10 +121,10 @@ public class Cargo {
      * 
      * @param cargoItinerary
      */
-    public void assignToRoute(CargoItinerary cargoItinerary) {
+    public Cargo assignToRoute(CargoItinerary cargoItinerary) {
+        // Em um design mais puro, criaríamos uma nova instância do Cargo
         this.itinerary = cargoItinerary;
-        // NOTA: No documento ideal, isso publicaria um Domain Event
-        // mas aqui fica na Application Service devido a limitação do JPA
+        return this;
     }
 
 }

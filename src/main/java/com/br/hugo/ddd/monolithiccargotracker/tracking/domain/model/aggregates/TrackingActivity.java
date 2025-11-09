@@ -2,12 +2,7 @@ package com.br.hugo.ddd.monolithiccargotracker.tracking.domain.model.aggregates;
 
 import com.br.hugo.ddd.monolithiccargotracker.tracking.domain.model.commands.AddTrackingEventCommand;
 import com.br.hugo.ddd.monolithiccargotracker.tracking.domain.model.commands.AssignTrackingNumberCommand;
-import com.br.hugo.ddd.monolithiccargotracker.tracking.domain.model.entities.TrackingActivityEvent;
-import com.br.hugo.ddd.monolithiccargotracker.tracking.domain.model.entities.TrackingBookingId;
-import com.br.hugo.ddd.monolithiccargotracker.tracking.domain.model.valueobjects.TrackingEvent;
-import com.br.hugo.ddd.monolithiccargotracker.tracking.domain.model.valueobjects.TrackingEventType;
-import com.br.hugo.ddd.monolithiccargotracker.tracking.domain.model.valueobjects.TrackingLocation;
-import com.br.hugo.ddd.monolithiccargotracker.tracking.domain.model.valueobjects.TrackingVoyageNumber;
+import com.br.hugo.ddd.monolithiccargotracker.tracking.domain.model.valueobjects.*;
 
 import javax.persistence.*;
 

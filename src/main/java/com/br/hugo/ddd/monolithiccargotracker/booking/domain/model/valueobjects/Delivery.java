@@ -1,9 +1,8 @@
 package com.br.hugo.ddd.monolithiccargotracker.booking.domain.model.valueobjects;
 
-import com.br.hugo.ddd.monolithiccargotracker.booking.domain.model.entities.Location;
-
 import javax.persistence.*;
 import java.util.Date;
+import java.util.Objects;
 
 // DOMAIN (Modelo de Domínio)
 /**
@@ -16,91 +15,88 @@ import java.util.Date;
 
 @Embeddable
 public class Delivery {
-    // CONCEITO: Value Object complexo com regras de domínio
-    // CONCEITO: Calculated State - Estado derivado de outras entidades
-
     public static final Date ETA_UNKOWN = null;
 
     // Tipos Enumerados - Status de Roteamento / Status de Transporte da Carga
     @Enumerated(EnumType.STRING)
     @Column(name = "routing_status")
-    private RoutingStatus routingStatus; // Status de Roteamento da Carga
+    private final RoutingStatus routingStatus; // Campo final
+
     @Enumerated(EnumType.STRING)
     @Column(name = "transport_status")
-    private TransportStatus transportStatus; // Status de Transporte da Carga. Informações atuais/anteriores da Carga.
-    // Auxilia o operador na verificação do estado atual.
+    private final TransportStatus transportStatus; // Campo final
+
     @Column(name = "last_known_location_id")
     @AttributeOverride(name = "unLocCode", column = @Column(name = "last_known_location_id"))
-    private Location lastKnownLocation;
+    private final Location lastKnownLocation; // Campo final
+
     @Column(name = "current_voyage_number")
     @AttributeOverride(name = "voyageNumber", column = @Column(name = "current_voyage_number"))
-    private Voyage currentVoyage;
-    @Embedded
-    private LastCargoHandledEvent lastEvent;
+    private final Voyage currentVoyage; // Campo final
 
-    // Previsões para a atividade da Carga. Auxilia o operador a determinar se algo
-    // precisa ser alterado no futuro
-    public static final CargoHandlingActivity NO_ACTIVITY = new CargoHandlingActivity();
     @Embedded
-    private CargoHandlingActivity nextExpectedActivity;
+    private final LastCargoHandledEvent lastEvent; // Campo final
+
+    // Previsões para a atividade da Carga
+    public static final CargoHandlingActivity NO_ACTIVITY = new CargoHandlingActivity();
+
+    @Embedded
+    private final CargoHandlingActivity nextExpectedActivity; // Campo final
 
     public Delivery() {
-        // Nada para Inicializar
+        this.routingStatus = null;
+        this.transportStatus = null;
+        this.lastKnownLocation = null;
+        this.currentVoyage = null;
+        this.lastEvent = null;
+        this.nextExpectedActivity = null;
     }
 
-    // CONCEITO: Domain Rules como métodos privados
     public Delivery(LastCargoHandledEvent lastEvent, CargoItinerary itinerary,
             RouteSpecification routeSpecification) {
         this.lastEvent = lastEvent;
-
-        this.routingStatus = calculateRoutingStatus(itinerary,
-                routeSpecification);
+        this.routingStatus = calculateRoutingStatus(itinerary, routeSpecification);
         this.transportStatus = calculateTransportStatus();
         this.lastKnownLocation = calculateLastKnownLocation();
         this.currentVoyage = calculateCurrentVoyage();
-        // this.nextExpectedActivity = calculateNextExpectedActivity(
-        // routeSpecification, itinerary);
+        this.nextExpectedActivity = NO_ACTIVITY;
     }
 
     /**
      * Cria uma nova captura de estado da entrega para refletir alterações no
-     * roteamento,
-     * isto é, quando a especificação da rota ou itinerário mudaram, sem manuseio
-     * adicional da carga.
-     * 
-     * CONCEITO: Update Method retornando novo Value Object
-     * 
+     * roteamento
      */
-    public Delivery updateOnRouting(RouteSpecification routeSpecification,
-            CargoItinerary itinerary) {
-
+    public Delivery updateOnRouting(RouteSpecification routeSpecification, CargoItinerary itinerary) {
         return new Delivery(this.lastEvent, itinerary, routeSpecification);
     }
 
     /**
-     *
-     * @param routeSpecification
-     * @param itinerary
-     * @param lastCargoHandledEvent
-     * @return
+     * Factory method para criar Delivery
      */
     public static Delivery derivedFrom(RouteSpecification routeSpecification,
             CargoItinerary itinerary, LastCargoHandledEvent lastCargoHandledEvent) {
-
         return new Delivery(lastCargoHandledEvent, itinerary, routeSpecification);
     }
 
-    /**
-     * Método para calcular o status de Roteamento de uma Carga
-     *
-     * CONCEITO: Business Rule Method
-     * 
-     * @param itinerary
-     * @param routeSpecification
-     * @return
-     */
-    private RoutingStatus calculateRoutingStatus(CargoItinerary itinerary,
-            RouteSpecification routeSpecification) {
+    // Apenas getters
+    public RoutingStatus getRoutingStatus() {
+        return this.routingStatus;
+    }
+
+    public TransportStatus getTransportStatus() {
+        return this.transportStatus;
+    }
+
+    public Location getLastKnownLocation() {
+        return this.lastKnownLocation;
+    }
+
+    public Voyage getCurrentVoyage() {
+        return this.currentVoyage;
+    }
+
+    // Métodos privados de cálculo permanecem iguais...
+    private RoutingStatus calculateRoutingStatus(CargoItinerary itinerary, RouteSpecification routeSpecification) {
         if (itinerary == null || itinerary == CargoItinerary.EMPTY_ITINERARY) {
             return RoutingStatus.NOT_ROUTED;
         } else {
@@ -108,11 +104,6 @@ public class Delivery {
         }
     }
 
-    /**
-     * Método para calcular o Status de Transporte de uma Carga
-     * 
-     * @return
-     */
     private TransportStatus calculateTransportStatus() {
         if (lastEvent.getHandlingEventType() == null) {
             return TransportStatus.NOT_RECEIVED;
@@ -130,14 +121,8 @@ public class Delivery {
             default:
                 return TransportStatus.UNKNOWN;
         }
-
     }
 
-    /**
-     * Calcular Última Localização Conhecida
-     * 
-     * @return
-     */
     private Location calculateLastKnownLocation() {
         if (lastEvent != null) {
             return new Location(lastEvent.getHandlingEventLocation());
@@ -146,10 +131,6 @@ public class Delivery {
         }
     }
 
-    /**
-     *
-     * @return
-     */
     private Voyage calculateCurrentVoyage() {
         if (getTransportStatus().equals(TransportStatus.ONBOARD_CARRIER) && lastEvent != null) {
             return new Voyage(lastEvent.getHandlingEventVoyage());
@@ -158,28 +139,24 @@ public class Delivery {
         }
     }
 
-    public RoutingStatus getRoutingStatus() {
-        return this.routingStatus;
+    @Override
+    public boolean equals(Object o) {
+        if (this == o)
+            return true;
+        if (!(o instanceof Delivery))
+            return false;
+        Delivery delivery = (Delivery) o;
+        return routingStatus == delivery.routingStatus &&
+                transportStatus == delivery.transportStatus &&
+                Objects.equals(lastKnownLocation, delivery.lastKnownLocation) &&
+                Objects.equals(currentVoyage, delivery.currentVoyage) &&
+                Objects.equals(lastEvent, delivery.lastEvent) &&
+                Objects.equals(nextExpectedActivity, delivery.nextExpectedActivity);
     }
 
-    public TransportStatus getTransportStatus() {
-        return this.transportStatus;
+    @Override
+    public int hashCode() {
+        return Objects.hash(routingStatus, transportStatus, lastKnownLocation,
+                currentVoyage, lastEvent, nextExpectedActivity);
     }
-
-    public Location getLastKnownLocation() {
-        return this.lastKnownLocation;
-    }
-
-    public void setLastKnownLocation(Location lastKnownLocation) {
-        this.lastKnownLocation = lastKnownLocation;
-    }
-
-    public void setLastEvent(LastCargoHandledEvent lastEvent) {
-        this.lastEvent = lastEvent;
-    }
-
-    public Voyage getCurrentVoyage() {
-        return this.currentVoyage;
-    }
-
 }

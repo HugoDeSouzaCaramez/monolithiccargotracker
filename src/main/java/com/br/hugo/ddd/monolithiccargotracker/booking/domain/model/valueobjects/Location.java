@@ -1,21 +1,24 @@
-package com.br.hugo.ddd.monolithiccargotracker.routing.domain.model.valueobjects;
+package com.br.hugo.ddd.monolithiccargotracker.booking.domain.model.valueobjects;
 
 import java.util.Objects;
 
 import javax.persistence.Column;
 import javax.persistence.Embeddable;
 
+// DOMAIN (Modelo de Domínio)
 /**
- * Classe Localização representada por um código de localização UN único de 5
+ * Classe Localização representada por um código único de localização UN de 5
  * dígitos
+ * 
+ * (Entity)
  */
 @Embeddable
 public class Location {
-    @Column(name = "arrival_location_id")
+    @Column(name = "origin_id")
     private final String unLocCode; // Campo final
 
     public Location() {
-        this.unLocCode = null;
+        this.unLocCode = null; // Para JPA
     }
 
     public Location(String unLocCode) {

@@ -1,7 +1,7 @@
 package com.br.hugo.ddd.monolithiccargotracker.booking.interfaces.rest;
 
 import com.br.hugo.ddd.monolithiccargotracker.booking.application.internal.commandservices.CargoBookingCommandService;
-import com.br.hugo.ddd.monolithiccargotracker.booking.domain.model.aggregates.BookingId;
+import com.br.hugo.ddd.monolithiccargotracker.booking.domain.model.valueobjects.BookingId;
 import com.br.hugo.ddd.monolithiccargotracker.booking.interfaces.rest.dto.BookCargoResource;
 import com.br.hugo.ddd.monolithiccargotracker.booking.interfaces.rest.transform.BookCargoCommandDTOAssembler;
 

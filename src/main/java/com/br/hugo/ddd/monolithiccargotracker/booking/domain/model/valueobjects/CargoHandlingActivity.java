@@ -1,9 +1,8 @@
 package com.br.hugo.ddd.monolithiccargotracker.booking.domain.model.valueobjects;
 
-import com.br.hugo.ddd.monolithiccargotracker.booking.domain.model.entities.Location;
-
 import javax.persistence.*;
 import java.io.Serializable;
+import java.util.Objects;
 
 // DOMAIN (Modelo de Domínio)
 /**
@@ -16,33 +15,38 @@ import java.io.Serializable;
  */
 @Embeddable
 public class CargoHandlingActivity implements Serializable {
-
     private static final long serialVersionUID = 1L;
+    
     @Column(name = "next_expected_handling_event_type")
-    private String type;
+    private final String type; // Campo final
+    
     @Embedded
     @AttributeOverride(name = "unLocCode", column = @Column(name = "next_expected_location_id"))
-    private Location location;
+    private final Location location; // Campo final
+    
     @Column(name = "next_expected_voyage_id")
     @AttributeOverride(name = "voyageNumber", column = @Column(name = "next_expected_voyage_id"))
-    private Voyage voyage;
+    private final Voyage voyage; // Campo final
 
     public CargoHandlingActivity() {
+        this.type = null;
+        this.location = null;
+        this.voyage = null;
     }
 
     public CargoHandlingActivity(String type, Location location) {
         this.type = type;
         this.location = location;
-
+        this.voyage = null;
     }
 
-    public CargoHandlingActivity(String type, Location location,
-            Voyage voyage) {
+    public CargoHandlingActivity(String type, Location location, Voyage voyage) {
         this.type = type;
         this.location = location;
         this.voyage = voyage;
     }
 
+    // Apenas getters
     public String getType() {
         return type;
     }
@@ -55,4 +59,18 @@ public class CargoHandlingActivity implements Serializable {
         return voyage;
     }
 
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (!(o instanceof CargoHandlingActivity)) return false;
+        CargoHandlingActivity that = (CargoHandlingActivity) o;
+        return Objects.equals(type, that.type) &&
+               Objects.equals(location, that.location) &&
+               Objects.equals(voyage, that.voyage);
+    }
+
+    @Override
+    public int hashCode() {
+        return Objects.hash(type, location, voyage);
+    }
 }

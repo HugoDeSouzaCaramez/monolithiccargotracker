@@ -1,20 +1,23 @@
-package com.br.hugo.ddd.monolithiccargotracker.handling.domain.model.valueobjects;
-
-import java.util.Objects;
+package com.br.hugo.ddd.monolithiccargotracker.tracking.domain.model.valueobjects;
 
 import javax.persistence.Column;
 import javax.persistence.Embeddable;
+import java.io.Serializable;
+import java.util.Objects;
 
+/**
+ * Identificador do Agregado para o Agregado Carga
+ */
 @Embeddable
-public class CargoBookingId {
+public class TrackingBookingId implements Serializable {
     @Column(name = "booking_id")
     private final String bookingId; // Campo final
 
-    public CargoBookingId() {
+    public TrackingBookingId() {
         this.bookingId = null;
     }
 
-    public CargoBookingId(String bookingId) {
+    public TrackingBookingId(String bookingId) {
         this.bookingId = bookingId;
     }
 
@@ -24,11 +27,9 @@ public class CargoBookingId {
 
     @Override
     public boolean equals(Object o) {
-        if (this == o)
-            return true;
-        if (!(o instanceof CargoBookingId))
-            return false;
-        CargoBookingId that = (CargoBookingId) o;
+        if (this == o) return true;
+        if (!(o instanceof TrackingBookingId)) return false;
+        TrackingBookingId that = (TrackingBookingId) o;
         return Objects.equals(bookingId, that.bookingId);
     }
 

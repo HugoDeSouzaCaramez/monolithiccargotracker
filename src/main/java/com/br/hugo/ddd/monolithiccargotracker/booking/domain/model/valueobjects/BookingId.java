@@ -1,4 +1,4 @@
-package com.br.hugo.ddd.monolithiccargotracker.booking.domain.model.aggregates;
+package com.br.hugo.ddd.monolithiccargotracker.booking.domain.model.valueobjects;
 
 import javax.persistence.Column;
 import javax.persistence.Embeddable;

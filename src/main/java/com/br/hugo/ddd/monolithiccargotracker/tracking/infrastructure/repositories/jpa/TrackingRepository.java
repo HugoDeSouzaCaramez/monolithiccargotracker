@@ -1,8 +1,8 @@
 package com.br.hugo.ddd.monolithiccargotracker.tracking.infrastructure.repositories.jpa;
 
 import com.br.hugo.ddd.monolithiccargotracker.tracking.domain.model.aggregates.TrackingActivity;
-import com.br.hugo.ddd.monolithiccargotracker.tracking.domain.model.aggregates.TrackingNumber;
-import com.br.hugo.ddd.monolithiccargotracker.tracking.domain.model.entities.TrackingBookingId;
+import com.br.hugo.ddd.monolithiccargotracker.tracking.domain.model.valueobjects.TrackingNumber;
+import com.br.hugo.ddd.monolithiccargotracker.tracking.domain.model.valueobjects.TrackingBookingId;
 
 import javax.enterprise.context.ApplicationScoped;
 import javax.persistence.EntityManager;

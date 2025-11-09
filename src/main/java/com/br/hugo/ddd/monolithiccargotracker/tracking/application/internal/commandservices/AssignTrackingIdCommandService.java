@@ -1,10 +1,10 @@
 package com.br.hugo.ddd.monolithiccargotracker.tracking.application.internal.commandservices;
 
 import com.br.hugo.ddd.monolithiccargotracker.tracking.domain.model.aggregates.TrackingActivity;
-import com.br.hugo.ddd.monolithiccargotracker.tracking.domain.model.aggregates.TrackingNumber;
+import com.br.hugo.ddd.monolithiccargotracker.tracking.domain.model.valueobjects.TrackingNumber;
 import com.br.hugo.ddd.monolithiccargotracker.tracking.domain.model.commands.AddTrackingEventCommand;
 import com.br.hugo.ddd.monolithiccargotracker.tracking.domain.model.commands.AssignTrackingNumberCommand;
-import com.br.hugo.ddd.monolithiccargotracker.tracking.domain.model.entities.TrackingBookingId;
+import com.br.hugo.ddd.monolithiccargotracker.tracking.domain.model.valueobjects.TrackingBookingId;
 import com.br.hugo.ddd.monolithiccargotracker.tracking.infrastructure.repositories.jpa.TrackingRepository;
 
 import javax.enterprise.context.ApplicationScoped;

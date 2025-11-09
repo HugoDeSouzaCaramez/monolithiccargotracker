@@ -1,7 +1,7 @@
 package com.br.hugo.ddd.monolithiccargotracker.booking.application.internal.commandservices;
 
 import com.br.hugo.ddd.monolithiccargotracker.booking.application.internal.outboundservices.acl.ExternalCargoRoutingService;
-import com.br.hugo.ddd.monolithiccargotracker.booking.domain.model.aggregates.BookingId;
+import com.br.hugo.ddd.monolithiccargotracker.booking.domain.model.valueobjects.BookingId;
 import com.br.hugo.ddd.monolithiccargotracker.booking.domain.model.aggregates.Cargo;
 import com.br.hugo.ddd.monolithiccargotracker.booking.domain.model.commands.BookCargoCommand;
 import com.br.hugo.ddd.monolithiccargotracker.booking.domain.model.commands.RouteCargoCommand;

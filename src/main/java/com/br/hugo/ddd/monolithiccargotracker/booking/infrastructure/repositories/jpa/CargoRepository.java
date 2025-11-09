@@ -1,6 +1,6 @@
 package com.br.hugo.ddd.monolithiccargotracker.booking.infrastructure.repositories.jpa;
 
-import com.br.hugo.ddd.monolithiccargotracker.booking.domain.model.aggregates.BookingId;
+import com.br.hugo.ddd.monolithiccargotracker.booking.domain.model.valueobjects.BookingId;
 import com.br.hugo.ddd.monolithiccargotracker.booking.domain.model.aggregates.Cargo;
 
 import javax.enterprise.context.ApplicationScoped;

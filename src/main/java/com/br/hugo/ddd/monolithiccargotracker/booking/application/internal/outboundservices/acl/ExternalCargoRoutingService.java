@@ -1,6 +1,6 @@
 package com.br.hugo.ddd.monolithiccargotracker.booking.application.internal.outboundservices.acl;
 
-import com.br.hugo.ddd.monolithiccargotracker.booking.domain.model.entities.Location;
+import com.br.hugo.ddd.monolithiccargotracker.booking.domain.model.valueobjects.Location;
 import com.br.hugo.ddd.monolithiccargotracker.booking.domain.model.valueobjects.CargoItinerary;
 import com.br.hugo.ddd.monolithiccargotracker.booking.domain.model.valueobjects.Leg;
 import com.br.hugo.ddd.monolithiccargotracker.booking.domain.model.valueobjects.RouteSpecification;

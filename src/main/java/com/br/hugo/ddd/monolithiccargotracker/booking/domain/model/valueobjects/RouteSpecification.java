@@ -1,46 +1,39 @@
 package com.br.hugo.ddd.monolithiccargotracker.booking.domain.model.valueobjects;
 
-import com.br.hugo.ddd.monolithiccargotracker.booking.domain.model.entities.Location;
-
 import javax.persistence.*;
 import javax.validation.constraints.NotNull;
 import java.util.Date;
+import java.util.Objects;
 
 // DOMAIN (Modelo de Domínio)
 // (Value Object)
 @Embeddable
 public class RouteSpecification {
-    // CONCEITO: Value Object - Sem identidade, substituível
-    // CONCEITO: Embedded Objects - Composição com outros VOs
-
     private static final long serialVersionUID = 1L;
+    
     @Embedded
     @AttributeOverride(name = "unLocCode", column = @Column(name = "spec_origin_id"))
-    private Location origin;
+    private final Location origin; // Campo final
+    
     @Embedded
     @AttributeOverride(name = "unLocCode", column = @Column(name = "spec_destination_id"))
-    private Location destination;
+    private final Location destination; // Campo final
+    
     @Temporal(TemporalType.DATE)
     @Column(name = "spec_arrival_deadline")
     @NotNull
-    private Date arrivalDeadline;
+    private final Date arrivalDeadline; // Campo final
 
     public RouteSpecification() {
+        this.origin = null;
+        this.destination = null;
+        this.arrivalDeadline = null;
     }
 
-    /**
-     * CONCEITO: Business Rules no constructor
-     * 
-     * @param origin          local de origem - não pode ser o mesmo que o destino
-     * @param destination     local de destino - não pode ser o mesmo que a origem
-     * @param arrivalDeadline prazo de chegada
-     */
-    public RouteSpecification(Location origin, Location destination,
-            Date arrivalDeadline) {
-
+    public RouteSpecification(Location origin, Location destination, Date arrivalDeadline) {
         this.origin = origin;
         this.destination = destination;
-        this.arrivalDeadline = (Date) arrivalDeadline.clone();
+        this.arrivalDeadline = arrivalDeadline != null ? new Date(arrivalDeadline.getTime()) : null;
     }
 
     public Location getOrigin() {
@@ -52,7 +45,21 @@ public class RouteSpecification {
     }
 
     public Date getArrivalDeadline() {
-        return new Date(arrivalDeadline.getTime());
+        return arrivalDeadline != null ? new Date(arrivalDeadline.getTime()) : null;
     }
 
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (!(o instanceof RouteSpecification)) return false;
+        RouteSpecification that = (RouteSpecification) o;
+        return Objects.equals(origin, that.origin) &&
+               Objects.equals(destination, that.destination) &&
+               Objects.equals(arrivalDeadline, that.arrivalDeadline);
+    }
+
+    @Override
+    public int hashCode() {
+        return Objects.hash(origin, destination, arrivalDeadline);
+    }
 }
